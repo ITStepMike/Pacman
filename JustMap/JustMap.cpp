@@ -69,7 +69,7 @@ void buildWalls(int count) {
 	for (;i < count;) {
 		chose = rand() % 3;
 		switch (chose) {
-		case 24:
+		case 0:
 			x = 3 + rand() % H-4;
 			y = 3 + rand() % W-4;
 			if (checkVerticalWall(x, y)) {
@@ -79,7 +79,7 @@ void buildWalls(int count) {
 				i++;
 			}
 			break;
-		case 25:
+		case 1:
 			x = 3 + rand() % H - 4;
 			y = 3 + rand() % W - 4;
 			if (checkHorizontalWall(x, y)) {
