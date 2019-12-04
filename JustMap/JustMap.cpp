@@ -142,7 +142,7 @@ int main()
 		}
 	}
 
-	buildWalls(3);
+	buildWalls(50);
 
 	for (int i = 0; i < H; i++) {
 		for (int j = 0; j < W; j++) {
