@@ -2,13 +2,14 @@
 #include <iostream>
 #include <windows.h>
 #include <conio.h>
-#include <dos.h>
 #include <iomanip>
+#include <thread>
 
 using namespace std;
 
 const int H = 50, W = 100;
 bool map[H][W];
+int userX, userY;
 
 void setXY(short x, short y)
 {
@@ -18,14 +19,14 @@ void setXY(short x, short y)
 
 void showXY(short x, short y)
 {
-	setXY(H+2, W+2);
+	setXY(H + 2, W + 2);
 	cout << "X:" << setw(3) << x << " Y:" << setw(3) << y;
 	setXY(x, y);
 }
 
 //checking place for setting vertical body
 bool checkVerticalWall(short x, short y) {
-	
+
 	for (int i = x - 2; i <= x + 2; i++) {
 		for (int j = y - 1; j <= y + 1; j++) {
 			if (map[i][j] == 1) {
@@ -66,12 +67,12 @@ bool checkHorizontalWall(short x, short y) {
 void buildWalls(int count) {
 	int chose, x, y, i;
 	i = 0;
-	for (;i < count;) {
+	for (; i < count;) {
 		chose = rand() % 3;
 		switch (chose) {
-		case 24:
-			x = 3 + rand() % H-4;
-			y = 3 + rand() % W-4;
+		case 0:
+			x = 3 + rand() % H - 4;
+			y = 3 + rand() % W - 4;
 			if (checkVerticalWall(x, y)) {
 				for (int j = x - 1; j <= x + 1; j++) {
 					map[j][y] = 1;
@@ -79,7 +80,7 @@ void buildWalls(int count) {
 				i++;
 			}
 			break;
-		case 25:
+		case 1:
 			x = 3 + rand() % H - 4;
 			y = 3 + rand() % W - 4;
 			if (checkHorizontalWall(x, y)) {
@@ -131,6 +132,8 @@ int main()
 {
 	srand(time(NULL));
 
+	//thread first(foo);
+
 	for (int i = 0; i < H; i++) {
 		for (int j = 0; j < W; j++) {
 			if (i == 0 || j == 0 || i == H - 1 || j == W - 1) {
@@ -142,7 +145,7 @@ int main()
 		}
 	}
 
-	buildWalls(3);
+	buildWalls(50);
 
 	for (int i = 0; i < H; i++) {
 		for (int j = 0; j < W; j++) {
@@ -152,13 +155,11 @@ int main()
 			}
 		}
 	}
-
-	//Set start x, y
-	int x, y;
+	
 	for (;;) {
-		x = 2 + rand() % H-2;
-		y = 2 + rand() % W-2;
-		if (map[x][y] == 0) {
+		userX = 2 + rand() % H - 2;
+		userY = 2 + rand() % W - 2;
+		if (map[userX][userY] == 0) {
 			break;
 		}
 	}
@@ -166,46 +167,46 @@ int main()
 	bool flag = true;
 	int t = 100;
 	enum Moves { UP = 72, RIGHT = 77, DOWN = 80, LEFT = 75, Enter = 13 };
-	while(flag) {
+	while (flag) {
 		switch (_getch()) {
 		case RIGHT:
-			if (check(x, y + 1)) {
-				setXY(x, y);
+			if (check(userX, userY + 1)) {
+				setXY(userX, userY);
 				cout << " ";
-				++y;
-				setXY(x, y);
+				++userY;
+				setXY(userX, userY);
 				cout << "O";
-				showXY(x, y);
+				showXY(userX, userY);
 			}
 			break;
 		case LEFT:
-			if (check(x, y - 1)) {
-				setXY(x, y);
+			if (check(userX, userY - 1)) {
+				setXY(userX, userY);
 				cout << " ";
-				--y;
-				setXY(x, y);
+				--userY;
+				setXY(userX, userY);
 				cout << "O";
-				showXY(x, y);
+				showXY(userX, userY);
 			}
 			break;
 		case UP:
-			if (check(x - 1, y)) {
-				setXY(x, y);
+			if (check(userX - 1, userY)) {
+				setXY(userX, userY);
 				cout << " ";
-				--x;
-				setXY(x, y);
+				--userX;
+				setXY(userX, userY);
 				cout << "O";
-				showXY(x, y);
+				showXY(userX, userY);
 			}
 			break;
 		case DOWN:
-			if (check(x + 1, y)) {
-				setXY(x, y);
+			if (check(userX + 1, userY)) {
+				setXY(userX, userY);
 				cout << " ";
-				++x;
-				setXY(x, y);
+				++userX;
+				setXY(userX, userY);
 				cout << "O";
-				showXY(x, y);
+				showXY(userX, userY);
 			}
 			break;
 		case Enter:
@@ -214,4 +215,3 @@ int main()
 		}
 	}
 }
-

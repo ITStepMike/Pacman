@@ -1,0 +1,3 @@
+﻿  JustMap.cpp
+c:\users\mike\source\repos\justmap\justmap\justmap.cpp(133): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  JustMap.vcxproj -> C:\Users\mike\source\repos\JustMap\Debug\JustMap.exe
